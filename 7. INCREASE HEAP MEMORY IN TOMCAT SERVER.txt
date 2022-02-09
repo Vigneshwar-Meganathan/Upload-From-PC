@@ -1,0 +1,50 @@
+INCREASE HEAP MEMORY IN TOMCAT SERVER:
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   The Tomcat server is works within the Java Virtual Machine (JVM).
+   JVM that controls the amount of memory avaialbe
+   Tomcat should be configured to have a maximun java Heap size of atleast 2GB for a testing server, and atleast 4GB for a production server.
+   Use of increasing the JVM memory it will speed up the tomcat server 
+   
+   JVM ALLOCATE MEMORY:
+   Java objects reside in an area of memory called the heap.
+   Whenever we create an object, it is created in the heap space. Any object created in the heap space has global access and can be referenced from anywhere on the application.
+   When the heap becomes full, garbage is collected, and during the garbage collection process, objects that are no longer in use are cleared, thus making space for new objects.
+   It identifies which objects are in use and which are not and deleting the unused objects.
+   
+   INCREASE JVM MEMORY IN TOMCAT SERVER
+   Go to the installation path of the tomcat server  path: C:/program files/apache foundation/tomcat9/bin
+   There we will find the tomcat9w.exe file right click on that file and select run as administration.
+   The 5th tab is the JAVA TAB just click on that 
+   Update the setting like below
+   Initial memory pool — 1024 MB
+   Maximum memory pool — 2048 MB
+   Thread stack size — Leave this field empty
+   Go to the GENERAL TAB 
+   Select STOP service and START the service back.
+   Click OK.
+   Just go to the tomcat server page right side click on SERVER STATUS
+   JVM: 
+   Free Momory:it will be increased by 2048mb
+   Step process URL: https://docs.bmc.com/docs/ars91/en/increasing-the-jvm-memory-allocation-and-thread-stack-size-609073221.html
+   
+   INCREASE JVM MEMORY IN TOMCAT SERVER BY SETENV FILE
+   Go to the installation path bin folder create the .txt file 
+   Enter the command: set JAVA_OPTS=%JAVA_OPTS% -Xms1024m  -Xmx1024m
+   And save as setenv.bat as a batch file.
+   Explanation:
+   Xms is the inital memory pool
+   Xmx is the maximum memory pool
+   When setting the Java heap size, you should specify your memory argument using one of the letters "m" or "M" for MB or "g" or "G" for GB.
+   Your setting won't work if you specify "MB" or "GB." Valid arguments look like this:
+   Xms64m or -Xms64M
+   Xmx1g or -Xmx1G
+   Xmx and -Xms can be defined in different size such as kilobytes, megabytes and gigabytes.
+   Xmx2048k
+   Xmx1024m
+   Xmx2g
+   Using -Xmx512m is a valid option, but Xmx0.5g will cause an error.
+   Video Tutorial URL: https://www.youtube.com/watch?v=ipcPPSGQWAk
+   Using the command prompt locate the tomcat server bin path and run the batch file and restart the server.
+   Step process URL: https://docs.bmc.com/docs/ars91/en/increasing-the-jvm-memory-allocation-and-thread-stack-size-609073221.html
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   
