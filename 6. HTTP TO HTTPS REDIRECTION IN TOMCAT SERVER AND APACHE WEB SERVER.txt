@@ -1,0 +1,74 @@
+HTTP TO HTTPS REDIRECTION IN TOMCAT SERVER:
+-----------------------------------------------------------------------------------------------------------------------
+STEP:1
+   Need to install the SSL certificate on the tomcat server and on the Server.xml file
+STEP 2:
+   Then need to update the security constraint code the om web.xml file.
+   If we are going to run the web application 
+   Just go to the web.xml file and paste the below code
+      <security-constraint>
+    <web-resource-collection>
+        <web-resource-name>securedapp</web-resource-name>
+        <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+</security-constraint>
+   Then export the file .war from eclipse tool and update that war file in tomcat server on webapp file.
+   Check the http://localhost:8080 it will redirect to https://localhost:9091
+-------------------------------------------------------------------------------------------------------------------------
+HTTP TO HTTPS REDIRECTION IN APACHE WEB SERVER:
+-------------------------------------------------------------------------------------------------------------------------
+STEP 1:
+   INSTALLATION STEPS FOR THE TOMCAT SERVER:
+   Download the Apache server from the bellow link:
+   https://www.apachelounge.com/download/
+   Along with that we to install the compatablity Visual C++ Redistributable for the apache web server its avaible in same above link.
+   For the installation process 
+   First install the Visual C++ Redistributable  vc_redist_x64.exe
+   Second step Extract the Apace web server and locate the path C:/
+STEP 2:
+   After installation set the environment varialbe for the apcahe web server path C:/Apache24/Bin
+   Now just open the command prompt and locate the apcahe web server path on cmd.
+   Run the Command httpd -k install (installing the package)
+   After the installation successfull go to the service.msc and start the apache24 service.
+   Once the service started go to the browser and type just localhost it will diplay "IT WORKS" if we get this display message apache web server is working perfect.
+   Then go to config file right click on http.conf file open with notepad++  line 227 ServerName: 127.0.0.1:8081 change to this.
+   Refresh the page and check it working or not if we get the display message "IT WORKS" working fine.
+   Video Tutorial: https://www.youtube.com/watch?v=oJnCEqeAsUk
+STEP 3:
+   For enable the https on apache web server need to create or generate the SSL certificate and Private key.
+   Just open the command prompt and locate the path C:/Apache24/Bin
+   Run the command for generate the SSL certificate and private key: 
+   openssl req -x509 -nodes -days 356 -newkey rsa:2048 -out server.crt -keyout server.key
+   It will ask the information and enter tha information one by one.
+   The certificate and key will generate in bin folder move both file to config folder.
+   Now open the http.conf and unmound some command lines 
+   Line 176: ssl_module module/mod_ssl.so
+   Line 527: Include conf/extra/httpd-ssl.conf
+   Line 174: socache_shmcb_module modules/mod_socache_shmcb.so
+   Go the extra folder and open the httpd-ssl.conf
+   Line 125: ServerName 127.0.0.1:443
+   Check the path of the certificate 
+   Line 144: Path of the ssl certificate
+   Check the path of the private key
+   Line 154: Path of hte Private key
+   Try to restart the apache24 service and go to browser type https://localhost it will display message "IT WORKS"
+STEP 4:
+   Now we going to redirect form http to htpps if we hit on http it will redirect to https.
+   We to add a rewrite command on http.conf file.
+   Command Line:
+   RewriteEngine On
+   RewriteCond %{HTTPS} off
+   RewriteRule (.*) https://%{SERVER_NAME} [R,L]
+   Now unmound some command lines 
+   Line 162: rewrite_module modules /mod_rewrite.so
+   Now restart the apache web server go to browser type: http:localhost it will automatically redirect https:localhost.
+   Video Tutorial URL: https://www.youtube.com/watch?v=7KHEmFJv4VE
+   
+   
+   
+   
+   
+   
