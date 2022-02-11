@@ -1,0 +1,40 @@
+CREATE MULTIPLE INSTANCE IN TOMCAT APACHE SERVER:
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+   More number of tomcat servers is said to be a clusting.
+STEP 1:
+   We need to create 3 folders according to the requirements (ex: tomcat1, tomcat2, tomcat3)
+   In this path: C:/Program files/Apache foundation/tomcat8
+   Then create the enviroment variable set CATALINA_HOME set the path: C:/Program files/Apache foundation/tomcat8
+   Inside that 3 folders we need move the folders like conf, log,temp,webapps,work on tomcat1, tomcat2, tomcat3.
+   we need to edit the server.xml file and change the http connector port, https port, shutdown port and finally ajp port.
+   For Example:
+		Port	    Tomcat1		Tomcat2		Tomcat3
+      Shutdown		9991		9992		9993
+      HTTP			8181		8282		8383	
+      HTTPS			8141		8242		8343
+      AJP	  		8109		8209		8309
+   Like above example we need to update on all 3 tomcat instance
+
+STEP 2:
+   Now we need to create the bat file to run the multipe instance tomcat1, tomcat2, tomcat3.
+   It should be a seperate bat file for each tomcat server for 1, 2, 3.
+   Create the .txt file and enter the below command:
+     @echo off
+	 set CATALINA_BASE=C:\<"path of the instance">
+	 cd "%CATALINA_HOME%\bin"
+	 set TITLE=<Name of the tomcat folder>
+	 call startup.bat %TITLE%
+   Save it and rename this file as startup.bat
+
+  Create the .txt file and enter the below command:
+     @echo off
+	 set CATALINA_BASE=C:\<"path of the instance">
+	 cd "%CATALINA_HOME%\bin"
+	 call shutdown.bat %TITLE%	 
+   Save it and rename this file as shutdown.bat
+   For all 3 tomcat server start the bat file startup.bat and keep it as running.
+   Go to the browser and the localhost for all 3 tomcat servers assigned  8181, 8282, 8383.
+   Check its working.
+   Video Tutorial URL: https://www.youtube.com/watch?v=n9l8WHHp_30   
+   
+   
