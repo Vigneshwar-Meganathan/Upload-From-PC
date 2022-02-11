@@ -1,0 +1,140 @@
+LOGGING FRAMEWORKS LOG4J AND IMPLEMENT IN JAVA PROJECT:
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LOG4J:
+   log4j is a framework. The framework is a semi build application. 
+   log4j is a reliable, fast and flexible logging framework (APIs) written in Java.
+   
+   log4j has three main components:
+    loggers: 
+	Responsible for capturing logging information
+	
+	Appenders: 
+	Responsible for publishing logging information to various preferred destinations.
+	
+	Layouts: 
+	Responsible for formatting logging information in different styles.
+   
+   Advantages of log4j:
+    It is optimized for speed.
+	It uses multiple levels, namely ALL, TRACE, DEBUG, INFO, WARN, ERROR and FATAL.
+	
+	TRACE:
+		The TRACE Level designates finer-grained informational events than the DEBUG.
+	DEBUG: 
+		The DEBUG Level designates fine-grained informational events that are most useful to debug an application.
+	INFO: 
+		The INFO level designates informational messages that highlight the progress of the application at coarse-grained level.
+	WARN: 
+		The WARN level designates potentially harmful situations.
+	ERROR: 
+		The ERROR level designates error events that might still allow the application to continue running.
+	FATAL: 
+		The FATAL level designates very severe error events that will presumably lead the application to abort.
+	ALL: 
+		The ALL has the lowest possible rank and is intended to turn on all logging.
+	OFF: 
+		The OFF has the highest possible rank and is intended to turn off logging.
+   
+    Trace is of the lowest priority and Fatal is having highest priority.
+	Trace < Debug < Info < Warn < Error < Fatal
+	
+LOG4J DEMO DONE WITH ECPLISE:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+STEP 1:
+   Just on the ecplise application.
+   Create a new project.
+   Now we need to add the dependency in pom.xml of that project.
+   Command below:
+		<dependencies>
+	  <dependency>
+		<groupId>org.apache.logging.log4j</groupId>
+		<artifactId>log4j-api</artifactId>
+		<version>2.17.1</version>
+	  </dependency>
+	  <dependency>
+		<groupId>org.apache.logging.log4j</groupId>
+		<artifactId>log4j-core</artifactId>
+		<version>2.17.1</version>
+	  </dependency>
+	  </dependencies>
+   
+   Just save the pom.xml file.
+   Create a sample package and name it as demo 
+   Right click on package file create a class and nome that.
+   Command Below:
+	package Demo;
+
+	import org.apache.logging.log4j.LogManager;
+	import org.apache.logging.log4j.Logger;
+
+	public class log4j2demo {
+
+		static Logger logger =LogManager.getLogger(log4j2demo.class);
+		public static void main(String[] args) {
+			
+			System.out.println("\n   Hello World....!     \n");
+			
+			logger.fatal("This is tracer message");
+			logger.info("This is the information message");
+			logger.error("This is error message");
+			logger.warn("This is a warning message");
+			logger.fatal("This is a fatal message");
+			
+			
+		}
+	}
+   
+   Save it and rum the java program you will get it output on console.
+   Now we need to create the log4j2.properties file on src/main/resource
+   Right click on in NEW and FILE then paste the commands given below.
+   Command Below:
+		name=PropertiesConfig
+		property.filename = logs
+		appenders = console, file
+		
+		appender.console.type = Console
+		appender.console.name = STDOUT
+		appender.console.layout.type = PatternLayout
+		appender.console.layout.pattern = [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+		
+		appender.file.type = File
+		appender.file.name = LOGFILE
+		appender.file.fileName=${filename}/Mylogs.log
+		appender.file.layout.type=PatternLayout
+		appender.file.layout.pattern=[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+		
+		loggers=file
+		logger.file.name=<Name of the package> Ex: Demo
+		logger.file.level = debug
+		logger.file.appenderRefs = file
+		logger.file.appenderRef.file.ref = LOGFILE
+
+		rootLogger.level = debug
+		rootLogger.appenderRefs = stdout
+		rootLogger.appenderRef.stdout.ref = STDOUT
+		
+   Just save the command line.
+   And Run the program 
+   We will get a log file and Mylogs.log file will be generated.
+   Output of the Log file:
+    
+	[FATAL] 2022-02-11 12:47:21.702 [main] log4j2demo - This is tracer message
+	[INFO ] 2022-02-11 12:47:21.707 [main] log4j2demo - This is the information message
+	[ERROR] 2022-02-11 12:47:21.707 [main] log4j2demo - This is an error message
+	[WARN ] 2022-02-11 12:47:21.707 [main] log4j2demo - This is a waring message
+	[FATAL] 2022-02-11 12:47:21.708 [main] log4j2demo - This is th fatal message
+   
+   Now the log4j is working.
+   If we need to stop the log4j process just we can do using off command.
+   In the log4j2.properties file just changing the command 
+   logger.file.level = off
+   rootLogger.level = off
+   And Save it.
+   
+   Video Tutorial URL: https://www.youtube.com/watch?v=rbuR9Q_55h4
+   Website Reference: https://springframework.guru/log4j-2-configuration-using-properties-file/
+   
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+   
+		
+   
